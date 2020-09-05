@@ -1,11 +1,39 @@
 from operator import attrgetter
 from read_csv import read_csv
+from sort import bubble_sort
+from chess_player import Chessplayer
+
+def binary_search(array, element):
+   
+    low = 0
+    high = len(array) - 1
+    count = 0
+
+    while low <= high:
+        # divide list into half while low is still less than high
+        middle = low + (high - low) // 2
+
+        if array[middle] == element:
+            print('Number of tries: ' + str(count))
+            return middle
+
+        elif array[middle] < element:
+            low = middle + 1
+
+        else:
+            high = middle - 1
+        count += 1
+
+    print('Number of searching: ' + str(count))
+    return -1
 
 
+# find players by attribute
 def identity(element):
     return element
 
-def find_index(elements, value, key:str)->int:
+
+def find_index(elements, value, key):
     left, right = 0, len(elements) - 1
 
     while left <= right:
@@ -21,59 +49,39 @@ def find_index(elements, value, key:str)->int:
             right = middle - 1
 
 
-def find_leftmost_index(elements, value, key=identity):
-    index = find_index(elements, value, key)
-    if index is not None:
-        while index >= 0 and key(elements[index]) == value:
-            index -= 1
-        index += 1
-    return index
-
-
-def find_rightmost_index(elements, value, key=identity):
-    index = find_index(elements, value, key)
-    if index is not None:
-        while index < len(elements) and key(elements[index]) == value:
-            index += 1
-        index -= 1
-    return index
-
-
-def find_all_indices(elements, value, key=identity):
-    left = find_leftmost_index(elements, value, key)
-    right = find_rightmost_index(elements, value, key)
-    if left and right:
-        return set(range(left, right + 1))
-    return set()
-
-
-def find_leftmost(elements, value, key=identity):
-    index = find_leftmost_index(elements, value, key)
-    return None if index is None else elements[index]
-
-
-def find_rightmost(elements, value, key=identity):
-    index = find_rightmost_index(elements, value, key)
-    return None if index is None else elements[index]
-
-
-def find_all(elements, value, key=identity):
-    return {elements[i] for i in find_all_indices(elements, value, key)}
-
-
 def find(elements, value, key=identity):
     index = find_index(elements, value, key)
-    # if index is not None:
-    #     print("player is found at ", index)
-    #     return index
-    # return None
     return None if index is None else elements[index]
 
+
 by_full_name = attrgetter('full_name')
+by_lname = attrgetter('lname')
+
+
 arr = read_csv('chess-players.csv')
-arr.sort(key=by_full_name)
-result = find(arr, value='Šarūnas Šulskis', key=by_full_name)
-if (result == -1): 
-    print("Element not present") 
-else: 
-    print("Element found at index", result) 
+sub_players = read_csv('players.csv')
+
+# sort players by full name or last name
+# arr.sort(key=by_full_name)
+# arr.sort(key=by_lname)
+
+# sort players using bubble sort algarithm
+bubble_sort(arr)
+
+
+#find player 
+# result = find(arr, value='Šarūnas Šulskis', key=by_full_name)
+# result = find(arr, value='Šulskis', key=by_lname)
+
+
+for player in sub_players:
+    print('****** Searching in progress.... *****')
+    result = binary_search(arr,player)
+
+    if (result):
+            print("Player found in the list")
+            print(f'First Name: {arr[result].fname}, Last Name: {arr[result].lname}, Country: {arr[result].country}, Born: {arr[result].born}, Died: {arr[result].died}')
+        
+    else: 
+        print("Not found Player") 
+    
