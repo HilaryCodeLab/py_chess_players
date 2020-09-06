@@ -21,18 +21,18 @@ def __lt__(self,other):
         return player1 < player2
 
 
-def __gt__(self,other):
+def __ge__(self,other):
         return not self.__lt__(other)
 
 
-def __ge__(self,other):
+def __gt__(self,other):
         player1 = Chessplayer(self.lname,self.fname,self.full_name,self.country,self.born,self.died)
         player2 = Chessplayer(other.lname,other.fname,other.full_name,other.country,other.born,other.died)
-        return player1 >= player2
+        return player1 > player2
 
 
 def __le__(self,other):
-        return not self.__ge__(other)
+        return not self.__gt__(other)
 
 
 def __eq__(self,other):
