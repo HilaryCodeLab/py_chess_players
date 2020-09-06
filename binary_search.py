@@ -24,7 +24,7 @@ def binary_search(array, element):
             high = middle - 1
         count += 1
 
-    print('Number of searching: ' + str(count))
+    # print('Number of searching: ' + str(count))
     return -1
 
 
@@ -54,34 +54,4 @@ def find(elements, value, key=identity):
     return None if index is None else elements[index]
 
 
-by_full_name = attrgetter('full_name')
-by_lname = attrgetter('lname')
-
-
-arr = read_csv('chess-players.csv')
-sub_players = read_csv('players.csv')
-
-# sort players by full name or last name
-# arr.sort(key=by_full_name)
-# arr.sort(key=by_lname)
-
-# sort players using bubble sort algarithm
-bubble_sort(arr)
-
-
-#find player 
-# result = find(arr, value='Šarūnas Šulskis', key=by_full_name)
-# result = find(arr, value='Šulskis', key=by_lname)
-
-
-for player in sub_players:
-    print('****** Searching in progress.... *****')
-    result = binary_search(arr,player)
-
-    if (result):
-            print("Player found in the list")
-            print(f'First Name: {arr[result].fname}, Last Name: {arr[result].lname}, Country: {arr[result].country}, Born: {arr[result].born}, Died: {arr[result].died}')
-        
-    else: 
-        print("Not found Player") 
     

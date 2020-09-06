@@ -45,11 +45,6 @@ def __ne__(self,other):
         return not self.__eq__(other)
 
 
-player = Chessplayer('james','bonds','james bond','usa','18/09/1975','26/02/2020')
-
-print(player)
-# print(f'{player.full_name} is from {player.country}')
-
 def print_details(self):
         print(f'First Name: {self.fname}, Last Name:{self.lname}, Country:{self.country}, Born:{self.born}, Died:{self.died}')
 
